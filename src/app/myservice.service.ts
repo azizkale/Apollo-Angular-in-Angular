@@ -15,6 +15,19 @@ const USERS = gql`
     }
   }
 `;
+const USER = gql`
+  query User($id: ID!) {
+    user(id: $id) {
+      id
+      username
+      city
+      posts {
+        id
+        title
+      }
+    }
+  }
+`;
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +38,15 @@ export class MyserviceService {
   getUsers(): Observable<any> {
     return this.apollo.watchQuery<any>({
       query: USERS,
+    }).valueChanges;
+  }
+
+  getUser(id: any): Observable<any> {
+    return this.apollo.watchQuery<any>({
+      query: USER,
+      variables: {
+        id: id,
+      },
     }).valueChanges;
   }
 }

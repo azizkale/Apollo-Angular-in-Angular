@@ -8,17 +8,26 @@ import { MyserviceService } from './myservice.service';
 })
 export class AppComponent implements OnInit {
   users = [];
+  user;
 
   constructor(private myservice: MyserviceService) {}
 
   ngOnInit(): void {
     this.getUsers();
+    this.getUser(1);
   }
 
   getUsers() {
     this.myservice.getUsers().subscribe((data) => {
       this.users = data.data.users;
       console.log(this.users);
+    });
+  }
+
+  getUser(id: any) {
+    this.myservice.getUser(id).subscribe((data) => {
+      this.user = data.data.user;
+      console.log(this.user);
     });
   }
 }

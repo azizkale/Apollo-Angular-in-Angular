@@ -28,6 +28,15 @@ const USER = gql`
     }
   }
 `;
+const ADD_USER = gql`
+  mutation addUser($id: ID!, $username: String!, $city: String!) {
+    addUser(id: $id, username: $username, city: $city) {
+      id
+      username
+      city
+    }
+  }
+`;
 
 @Injectable({
   providedIn: 'root',
@@ -48,5 +57,16 @@ export class MyserviceService {
         id: id,
       },
     }).valueChanges;
+  }
+
+  addUser(id: any, username: string, city: string): Observable<any> {
+    return this.apollo.mutate({
+      mutation: ADD_USER,
+      variables: {
+        id: id,
+        username: username,
+        city: city,
+      },
+    });
   }
 }

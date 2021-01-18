@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.getUsers();
     this.getUser(1);
+    this.addUser(5, 'aziz kale', 'ankara');
   }
 
   getUsers() {
@@ -28,6 +29,12 @@ export class AppComponent implements OnInit {
     this.myservice.getUser(id).subscribe((data) => {
       this.user = data.data.user;
       console.log(this.user);
+    });
+  }
+
+  addUser(id: any, username: string, city: string) {
+    this.myservice.addUser(id, username, city).subscribe((data) => {
+      console.log(data.data.addUser);
     });
   }
 }
